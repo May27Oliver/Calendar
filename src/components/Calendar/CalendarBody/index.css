@@ -1,0 +1,60 @@
+.date-wrap {
+  display: table;
+  padding: 0 20px 20px;
+  box-sizing: border-box;
+}
+.week-row {
+  display: table-row;
+  box-sizing: border-box;
+}
+.week-col {
+  display: table-cell;
+  width: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-weight: 700;
+}
+.year-wrap,
+.month-wrap {
+  /* width: 100%; */
+  padding: 0 20px 20px;
+
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.year-col,
+.month-col {
+  flex: 0 0 105px;
+  text-align: center;
+  line-height: 105px;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.days-wrap {
+  display: table-row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.days-row {
+  display: table-row;
+}
+.day-col {
+  display: table-cell;
+  min-width: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+.month-col:hover,
+.day-col:hover {
+  background: red;
+  color: #ffffff;
+  border-radius: 50%;
+}
+.day-col.not-current-day {
+  color: #eeeeee;
+}

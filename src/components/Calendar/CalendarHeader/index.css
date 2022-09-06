@@ -1,0 +1,28 @@
+.cal-header-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+.header-content {
+  width: 70%;
+  text-align: center;
+  font-weight: 800;
+  line-height: 36px;
+  background: rgb(238, 236, 236);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn {
+  flex: 0 0 30px;
+
+  line-height: 30px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn.before {
+  margin: 0 10px 0 0;
+}
+.btn.later {
+  margin: 0 0 0 10px;
+}
