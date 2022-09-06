@@ -1,0 +1,14 @@
+.date-pick-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 20px 0;
+}
+.date-picker {
+  margin: auto;
+  height: 30px;
+  width: 200px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}

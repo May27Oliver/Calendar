@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import CalendarBody from './CalendarBody';
 import CalendarHeader from './CalendarHeader';
+import DatePicker from './DatePicker';
 import { TimeLevel, DATE_TYPE } from './type';
 import { generateCurrentMonthArray, getMonthDays, generateWholeMonthArray } from '../../utils/calculate';
 /*
@@ -34,7 +35,7 @@ const Calendar: React.FC = () => {
       case 'decad':
         break;
     }
-    setTheDate(0);
+    setTheDate(1);
   }, [selectedLevel]);
 
   //month
@@ -45,7 +46,7 @@ const Calendar: React.FC = () => {
     } else {
       setTheMonth((prev) => prev + 1);
     }
-    setTheDate(0);
+    setTheDate(1);
   }, [theMonth]);
 
   const setPrevMonth = React.useCallback((): void => {
@@ -55,7 +56,7 @@ const Calendar: React.FC = () => {
     } else {
       setTheMonth((prev) => prev - 1);
     }
-    setTheDate(0);
+    setTheDate(1);
   }, [theMonth]);
 
   //year
@@ -108,45 +109,56 @@ const Calendar: React.FC = () => {
     let wholeMonthArray = generateWholeMonthArray(currentMonthArray, theMonth, theYear);
     setDays(wholeMonthArray);
   }, [theYear, theMonth]);
+
   return (
-    <div className="calendar-wrap">
-      <CalendarHeader
-        level={selectedLevel}
-        month={MONTH[theMonth]}
-        year={theYear}
-        setPrev={setPrev}
-        setNext={setNext}
-        setHigherLevel={setHigherLevel}
-      />
-      <CalendarBody
-        level={selectedLevel}
-        days={days}
+    <>
+      <DatePicker
         year={theYear}
         month={theMonth}
-        presentDay={presentDay}
-        selectedDay={theDate}
-        setSelectDay={React.useCallback(
-          (day: number) => {
-            setTheDate(day);
-          },
-          [setTheDate]
-        )}
-        setSelectMonth={React.useCallback(
-          (month: number) => {
-            setTheMonth(month);
-            setSelectedLevel('month');
-          },
-          [setTheMonth, setSelectedLevel]
-        )}
-        setSelectYear={React.useCallback(
-          (year: number) => {
-            setTheYear(year);
-            setSelectedLevel('year');
-          },
-          [setTheYear, setSelectedLevel]
-        )}
+        date={theDate}
+        setYearFromDatePicker={(year: number) => setTheYear(year)}
+        setMonthFromDatePicker={(month: number) => setTheMonth(month)}
+        setDateFromDatePicker={(date: number) => setTheDate(date)}
       />
-    </div>
+      <div className="calendar-wrap">
+        <CalendarHeader
+          level={selectedLevel}
+          month={MONTH[theMonth]}
+          year={theYear}
+          setPrev={setPrev}
+          setNext={setNext}
+          setHigherLevel={setHigherLevel}
+        />
+        <CalendarBody
+          level={selectedLevel}
+          days={days}
+          year={theYear}
+          month={theMonth}
+          presentDay={presentDay}
+          selectedDay={theDate}
+          setSelectDay={React.useCallback(
+            (day: number) => {
+              setTheDate(day);
+            },
+            [setTheDate]
+          )}
+          setSelectMonth={React.useCallback(
+            (month: number) => {
+              setTheMonth(month);
+              setSelectedLevel('month');
+            },
+            [setTheMonth, setSelectedLevel]
+          )}
+          setSelectYear={React.useCallback(
+            (year: number) => {
+              setTheYear(year);
+              setSelectedLevel('year');
+            },
+            [setTheYear, setSelectedLevel]
+          )}
+        />
+      </div>
+    </>
   );
 };
 
