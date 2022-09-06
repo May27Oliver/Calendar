@@ -49,12 +49,23 @@
   font-weight: 600;
   cursor: pointer;
 }
-.month-col:hover,
+
 .day-col:hover {
-  background: red;
+  background: rgb(206, 201, 201);
   color: #ffffff;
   border-radius: 50%;
 }
 .day-col.not-current-day {
   color: #eeeeee;
+}
+.year-col:hover,
+.month-col:hover,
+.day-col.selected-day {
+  background: #db3d44;
+  color: #ffffff;
+  border-radius: 50%;
+}
+.day-col.present-day {
+  color: #db3d44;
+  font-weight: 800;
 }

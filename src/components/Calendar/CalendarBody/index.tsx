@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { DATE_TYPE, TimeLevel } from '../type';
 import { WEEK, MONTH } from '../index';
 import './index.css';
@@ -6,24 +6,31 @@ import { generateWholeDecadList } from '../../../utils/calculate';
 interface CaledarBodyProps {
   level: TimeLevel;
   days: DATE_TYPE[];
+  selectedDay: number;
   year: number;
+  month: number;
   setSelectDay(day: number): void;
   setSelectMonth(month: number): void;
   setSelectYear(year: number): void;
+  presentDay: {
+    date: number;
+    month: number;
+    year: number;
+  };
 }
 
 const CalendarBody: React.FC<CaledarBodyProps> = ({
   level,
   days,
+  selectedDay,
   year,
+  month,
   setSelectDay,
   setSelectMonth,
   setSelectYear,
+  presentDay,
 }) => {
   switch (level) {
-    case 'month': {
-      return <ShowDate days={days} setSelectDay={setSelectDay} />;
-    }
     case 'year': {
       return <ShowMonth setSelectMonth={setSelectMonth} />;
     }
@@ -31,7 +38,16 @@ const CalendarBody: React.FC<CaledarBodyProps> = ({
       return <ShowYear setSelectYear={setSelectYear} year={year} />;
     }
     default: {
-      return <ShowDate days={days} setSelectDay={setSelectDay} />;
+      return (
+        <ShowDate
+          days={days}
+          setSelectDay={setSelectDay}
+          year={year}
+          month={month}
+          selectedDay={selectedDay}
+          presentDay={presentDay}
+        />
+      );
     }
   }
 };
@@ -39,9 +55,17 @@ const CalendarBody: React.FC<CaledarBodyProps> = ({
 interface ShowDateProps {
   days: DATE_TYPE[];
   setSelectDay(day: number): void;
+  selectedDay: number;
+  year: number;
+  month: number;
+  presentDay: {
+    date: number;
+    month: number;
+    year: number;
+  };
 }
 
-const ShowDate: React.FC<ShowDateProps> = ({ days, setSelectDay }) => {
+const ShowDate: React.FC<ShowDateProps> = ({ days, setSelectDay, selectedDay, year, month, presentDay }) => {
   const rows = [
     days.slice(0, 7),
     days.slice(7, 14),
@@ -50,7 +74,6 @@ const ShowDate: React.FC<ShowDateProps> = ({ days, setSelectDay }) => {
     days.slice(28, 35),
     days.slice(35),
   ];
-
   return (
     <div className="date-wrap">
       <div className="week-row">
@@ -64,8 +87,19 @@ const ShowDate: React.FC<ShowDateProps> = ({ days, setSelectDay }) => {
         <div key={index} className="days-row">
           {row.map((day) => (
             <div
-              className={`day-col ${day.isCurrentMonth ? 'current-day' : 'not-current-day'}`}
-              onClick={() => setSelectDay(day.value)}
+              className={`day-col ${day.isCurrentMonth ? 'current-day' : 'not-current-day'} ${
+                selectedDay === day.value && day.isCurrentMonth ? 'selected-day' : ''
+              }
+                ${
+                  year === presentDay.year &&
+                  month === presentDay.month &&
+                  day.value === presentDay.date &&
+                  day.isCurrentMonth &&
+                  presentDay.date !== selectedDay
+                    ? 'present-day'
+                    : ''
+                }`}
+              onClick={() => day.isCurrentMonth && setSelectDay(day.value)}
             >
               {day.value}
             </div>

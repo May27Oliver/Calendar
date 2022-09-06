@@ -2,7 +2,7 @@ import { DATE_TYPE, CurrentDecadYear } from '../components/Calendar/type';
 
 /*leap year or not*/
 export const isLeapYear = (year: number): boolean => {
-  return (year % 100 !== 0 && year % 4 == 0) || year % 400 == 0;
+  return (year % 100 !== 0 && year % 4 === 0) || year % 400 === 0;
 };
 
 /*取得該月有幾天*/

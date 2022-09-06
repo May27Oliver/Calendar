@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import CalendarBody from './CalendarBody';
 import CalendarHeader from './CalendarHeader';
-import { TimeLevel, WEEK_TYPE, MONTH_TYPE, DATE_TYPE } from './type';
+import { TimeLevel, DATE_TYPE } from './type';
 import { generateCurrentMonthArray, getMonthDays, generateWholeMonthArray } from '../../utils/calculate';
 /*
 1.show present month at the begining
@@ -21,6 +21,7 @@ const Calendar: React.FC = () => {
   const [theDate, setTheDate] = React.useState<number>(dateTime.getDate());
   const [theMonth, setTheMonth] = React.useState<number>(dateTime.getMonth());
   const [theYear, setTheYear] = React.useState<number>(dateTime.getFullYear());
+  const presentDay = { date: dateTime.getDate(), month: dateTime.getMonth(), year: dateTime.getFullYear() };
 
   const setHigherLevel = React.useCallback(() => {
     switch (selectedLevel) {
@@ -33,6 +34,7 @@ const Calendar: React.FC = () => {
       case 'decad':
         break;
     }
+    setTheDate(0);
   }, [selectedLevel]);
 
   //month
@@ -43,6 +45,7 @@ const Calendar: React.FC = () => {
     } else {
       setTheMonth((prev) => prev + 1);
     }
+    setTheDate(0);
   }, [theMonth]);
 
   const setPrevMonth = React.useCallback((): void => {
@@ -52,23 +55,24 @@ const Calendar: React.FC = () => {
     } else {
       setTheMonth((prev) => prev - 1);
     }
+    setTheDate(0);
   }, [theMonth]);
 
   //year
   const setPrevYear = React.useCallback(() => {
     setTheYear((prev) => prev - 1);
-  }, [theYear]);
+  }, []);
   const setNextYear = React.useCallback(() => {
     setTheYear((prev) => prev + 1);
-  }, [theYear]);
+  }, []);
 
   //decad
   const setPrevDecad = React.useCallback(() => {
     setTheYear((prev) => prev - 10);
-  }, [theYear]);
+  }, []);
   const setNextDecad = React.useCallback(() => {
     setTheYear((prev) => prev + 10);
-  }, [theYear]);
+  }, []);
 
   const setPrev = React.useCallback(() => {
     switch (selectedLevel) {
@@ -82,7 +86,7 @@ const Calendar: React.FC = () => {
         setPrevDecad();
         break;
     }
-  }, [theMonth, theYear]);
+  }, [selectedLevel, setPrevMonth, setPrevYear, setPrevDecad]);
 
   const setNext = React.useCallback(() => {
     switch (selectedLevel) {
@@ -96,7 +100,7 @@ const Calendar: React.FC = () => {
         setNextDecad();
         break;
     }
-  }, [theMonth, theYear]);
+  }, [selectedLevel, setNextDecad, setNextMonth, setNextYear]);
 
   React.useEffect(() => {
     let days = getMonthDays(theMonth + 1, theYear);
@@ -118,6 +122,9 @@ const Calendar: React.FC = () => {
         level={selectedLevel}
         days={days}
         year={theYear}
+        month={theMonth}
+        presentDay={presentDay}
+        selectedDay={theDate}
         setSelectDay={(day: number) => {
           setTheDate(day);
         }}
