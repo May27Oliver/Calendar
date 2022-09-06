@@ -1,6 +1,6 @@
 .App {
-  height: 100vh;
   display: block;
+  height: 100%;
   background: #282c34;
-  padding: 100px 0 0 0;
+  padding: 100px 0 400px;
 }

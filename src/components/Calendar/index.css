@@ -4,3 +4,11 @@
   margin: auto;
   border: 1px solid gray;
 }
+
+@media (max-width: 400px) {
+  .calendar-wrap {
+    width: 100%;
+    background: #fff;
+    border: 1px solid gray;
+  }
+}

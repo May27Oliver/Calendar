@@ -103,9 +103,9 @@ const Calendar: React.FC = () => {
   }, [selectedLevel, setNextDecad, setNextMonth, setNextYear]);
 
   React.useEffect(() => {
-    let days = getMonthDays(theMonth + 1, theYear);
+    let days = getMonthDays(theMonth, theYear);
     let currentMonthArray = generateCurrentMonthArray(days);
-    let wholeMonthArray = generateWholeMonthArray(currentMonthArray, theMonth + 1, theYear);
+    let wholeMonthArray = generateWholeMonthArray(currentMonthArray, theMonth, theYear);
     setDays(wholeMonthArray);
   }, [theYear, theMonth]);
   return (
@@ -125,17 +125,26 @@ const Calendar: React.FC = () => {
         month={theMonth}
         presentDay={presentDay}
         selectedDay={theDate}
-        setSelectDay={(day: number) => {
-          setTheDate(day);
-        }}
-        setSelectMonth={(month: number) => {
-          setTheMonth(month);
-          setSelectedLevel('month');
-        }}
-        setSelectYear={(year: number) => {
-          setTheYear(year);
-          setSelectedLevel('year');
-        }}
+        setSelectDay={React.useCallback(
+          (day: number) => {
+            setTheDate(day);
+          },
+          [setTheDate]
+        )}
+        setSelectMonth={React.useCallback(
+          (month: number) => {
+            setTheMonth(month);
+            setSelectedLevel('month');
+          },
+          [setTheMonth, setSelectedLevel]
+        )}
+        setSelectYear={React.useCallback(
+          (year: number) => {
+            setTheYear(year);
+            setSelectedLevel('year');
+          },
+          [setTheYear, setSelectedLevel]
+        )}
       />
     </div>
   );

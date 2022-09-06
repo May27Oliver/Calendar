@@ -66,14 +66,6 @@ interface ShowDateProps {
 }
 
 const ShowDate: React.FC<ShowDateProps> = ({ days, setSelectDay, selectedDay, year, month, presentDay }) => {
-  const rows = [
-    days.slice(0, 7),
-    days.slice(7, 14),
-    days.slice(14, 21),
-    days.slice(21, 28),
-    days.slice(28, 35),
-    days.slice(35),
-  ];
   return (
     <div className="date-wrap">
       <div className="week-row">
@@ -83,29 +75,28 @@ const ShowDate: React.FC<ShowDateProps> = ({ days, setSelectDay, selectedDay, ye
           </div>
         ))}
       </div>
-      {rows.map((row, index) => (
-        <div key={index} className="days-row">
-          {row.map((day) => (
-            <div
-              className={`day-col ${day.isCurrentMonth ? 'current-day' : 'not-current-day'} ${
-                selectedDay === day.value && day.isCurrentMonth ? 'selected-day' : ''
-              }
-                ${
-                  year === presentDay.year &&
-                  month === presentDay.month &&
-                  day.value === presentDay.date &&
-                  day.isCurrentMonth &&
-                  presentDay.date !== selectedDay
-                    ? 'present-day'
-                    : ''
-                }`}
-              onClick={() => day.isCurrentMonth && setSelectDay(day.value)}
-            >
-              {day.value}
-            </div>
-          ))}
-        </div>
-      ))}
+      <div className="days-wrap">
+        {days.map((day) => (
+          <div
+            key={`${day.isCurrentMonth ? 1 : 0}-${day.value}`}
+            className={`day-col ${day.isCurrentMonth ? 'current-day' : 'not-current-day'} ${
+              selectedDay === day.value && day.isCurrentMonth ? 'selected-day' : ''
+            }
+          ${
+            year === presentDay.year &&
+            month === presentDay.month &&
+            day.value === presentDay.date &&
+            day.isCurrentMonth &&
+            presentDay.date !== selectedDay
+              ? 'present-day'
+              : ''
+          }`}
+            onClick={() => day.isCurrentMonth && setSelectDay(day.value)}
+          >
+            {day.value}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -148,8 +139,8 @@ const ShowYear: React.FC<ShowYearProps> = ({ setSelectYear, year }) => {
   }, [year]);
   return (
     <div className="year-wrap">
-      {decadList.map((d, index) => (
-        <div className="year-col" onClick={() => setSelectYear(d.value)}>
+      {decadList.map((d) => (
+        <div key={d.value} className="year-col" onClick={() => setSelectYear(d.value)}>
           {d.value}
         </div>
       ))}

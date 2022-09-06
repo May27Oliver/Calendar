@@ -35,7 +35,7 @@ export const generateCurrentMonthArray = (days: number): DATE_TYPE[] => {
 
 /*該月第一天是禮拜幾？*/
 export const getFirstDayAtWeek = (month: number, year: number): number => {
-  return new Date(`${year},${month},1`).getDay();
+  return new Date(year, month, 1).getDay();
 };
 
 /*投入該月有幾天的陣列後，前後補滿42日，取得完整的月份*/
