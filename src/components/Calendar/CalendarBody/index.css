@@ -52,6 +52,7 @@
   color: #ffffff;
   border-radius: 50%;
 }
+.year-col.not-current-decad,
 .day-col.not-current-day {
   color: #eeeeee;
 }

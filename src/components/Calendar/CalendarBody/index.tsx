@@ -140,7 +140,11 @@ const ShowYear: React.FC<ShowYearProps> = ({ setSelectYear, year }) => {
   return (
     <div className="year-wrap">
       {decadList.map((d) => (
-        <div key={d.value} className="year-col" onClick={() => setSelectYear(d.value)}>
+        <div
+          key={d.value}
+          className={`year-col ${d.isCurrentDecadYear ? 'current-year' : 'not-current-decad'}`}
+          onClick={() => d.isCurrentDecadYear && setSelectYear(d.value)}
+        >
           {d.value}
         </div>
       ))}

@@ -69,10 +69,10 @@ export const generateWholeMonthArray = (currentMonth: DATE_TYPE[], month: number
 export const generateWholeDecadList = (year: number): CurrentDecadYear[] => {
   let beginYear = Math.floor(year / 10) * 10;
   let yearList: CurrentDecadYear[] = [];
-  for (let i = -1; i < 11; i++) {
+  for (let i = -1; i <= 10; i++) {
     if (i === -1) {
       yearList = [...yearList, { value: beginYear + i, isCurrentDecadYear: false }];
-    } else if (i === 11) {
+    } else if (i === 10) {
       yearList = [...yearList, { value: beginYear + i, isCurrentDecadYear: false }];
     } else {
       yearList = [...yearList, { value: beginYear + i, isCurrentDecadYear: true }];
