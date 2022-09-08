@@ -116,9 +116,9 @@ const Calendar: React.FC = () => {
         year={theYear}
         month={theMonth}
         date={theDate}
-        setYearFromDatePicker={(year: number) => setTheYear(year)}
-        setMonthFromDatePicker={(month: number) => setTheMonth(month)}
-        setDateFromDatePicker={(date: number) => setTheDate(date)}
+        setYearFromDatePicker={React.useCallback((year: number) => setTheYear(year), [])}
+        setMonthFromDatePicker={React.useCallback((month: number) => setTheMonth(month), [])}
+        setDateFromDatePicker={React.useCallback((date: number) => setTheDate(date), [])}
       />
       <div className="calendar-wrap">
         <CalendarHeader
