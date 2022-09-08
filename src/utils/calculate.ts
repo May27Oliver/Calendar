@@ -46,7 +46,7 @@ export const generateWholeMonthArray = (currentMonth: DATE_TYPE[], month: number
   if (month === 1) {
     prevMonthDays = getMonthDays(12, year - 1);
   } else {
-    prevMonthDays = getMonthDays(month - 1, year);
+    prevMonthDays = getMonthDays(month, year);
   }
   // 向前補
   // 取得上月最後一日幾號
