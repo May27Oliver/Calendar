@@ -104,7 +104,7 @@ const Calendar: React.FC = () => {
   }, [selectedLevel, setNextDecad, setNextMonth, setNextYear]);
 
   React.useEffect(() => {
-    let days = getMonthDays(theMonth, theYear);
+    let days = getMonthDays(theMonth + 1, theYear);
     let currentMonthArray = generateCurrentMonthArray(days);
     let wholeMonthArray = generateWholeMonthArray(currentMonthArray, theMonth, theYear);
     setDays(wholeMonthArray);
